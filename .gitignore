@@ -1,0 +1,5 @@
+**VENV**
+*.DS_Store
+*__pycache__
+*.vscode
+*pytest_cache

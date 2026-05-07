@@ -1,0 +1,62 @@
+<html>
+
+    <style>
+        .books {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            background-color: dodgerblue;
+            padding: 10px;
+        }
+        .books div {
+            background-color: #f1f1f1;
+            border: 2px solid black;
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        .thumbnail:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+            background-color: dodgerblue;
+            font-size: 30px;
+            transition: 500ms;
+            border: 1px solid black;
+        }
+        img {
+            border: 1px solid #ddd; /* Gray border */
+            border-radius: 4px;  /* Rounded border */
+            padding: 5px; /* Some padding */
+            width: 150px; /* Set a small width */
+        }
+    </style>
+
+    <body>
+        <h1>My Books</h1>
+        <div class="books">
+            <div class="thumbnail">
+                <a href="https://en.wikipedia.org/wiki/The_Very_Hungry_Caterpillar">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/b/b5/HungryCaterpillar.JPG"> 
+                    <br>The Hungry Caterpiller - Eric Carle<br> 
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://en.wikipedia.org/wiki/List_of_books_written_by_Daisy_Meadows">
+                    <img src="https://static.wikia.nocookie.net/rainbowmagic/images/c/cd/Amber_orange.jpg/revision/latest/scale-to-width-down/275?cb=20240823130710">
+                    <br>Amber the Orange Fairy - Daisy Meadows<br>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://en.wikipedia.org/wiki/The_Elephant_Vanishes">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/1/11/Haruki_murakami_elephant_9780679750536.jpg">
+                    <br>The Elephant Vanishes - Haruki Murakami<br>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://en.wikipedia.org/wiki/Dune_(novel)">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/d/de/Dune-Frank_Herbert_%281965%29_First_edition.jpg">
+                    <br>Dune - Frank Herbert<br>
+                </a>
+            </div>
+        </div>
+    </body> 
+</html>
