@@ -1,4 +1,5 @@
 from flask import Flask
+
 from flask import render_template
 
 # instantiate a Flask app object
@@ -22,28 +23,36 @@ def hello():
 @app.route('/books', methods=['GET'])
 def books():
     return render_template("books.html")
-    # book_list = [
-    #     {
-    #         "title": "The Gruffalo",
-    #         "author": "Julia Donaldson"
-    #     },
-    #     {
-    #         "title": "Ada Twist, Scientist",
-    #         "author": "Andrea Beaty"
-    #     },
-    #     {
-    #         "title": "The Girl Who Drank the Moon",
-    #         "author": "Kelly Barnhill"
-    #     },
-    #     {
-    #         "title": "Dragons in a Bag",
-    #         "author": "Zetta Elliott"
-    #     }
-    # ]
-    # return book_list
+
+
+@app.route('/initial_books', methods=['GET'])
+def initial_books():
+    book_list = [
+        {
+            "title": "The Gruffalo",
+            "author": "Julia Donaldson"
+        },
+        {
+            "title": "Ada Twist, Scientist",
+            "author": "Andrea Beaty"
+        },
+        {
+            "title": "The Girl Who Drank the Moon",
+            "author": "Kelly Barnhill"
+        },
+        {
+            "title": "Dragons in a Bag",
+            "author": "Zetta Elliott"
+        }
+    ]
+    return book_list
 
 @app.route('/authors', methods=['GET'])
 def authors():
+    return render_template("authors.html")
+
+@app.route('/initial_authors', methods=['GET'])
+def initial_authors():
     author_list = [
         {
         "name": "Julia Donaldson",
@@ -68,9 +77,10 @@ def authors():
 def index():
     return render_template("index.html")
 
+
 # make the server run in response to `python app.py`
 # on port 5001 (you'll learn more about what this means later)
 # and use debug mode so that changing code restarts the app
 if __name__ == "__main__":
-    app.run(port=5001, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)
 
