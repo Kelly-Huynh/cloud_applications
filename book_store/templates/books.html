@@ -11,10 +11,13 @@
                 </a>
             </div>
             <ul>
-                <li>The Hungry Caterpiller - Eric Carle</li>
+                {% for book in books %}
+                    <li>{{ book.title }} by {{ book.author }}</li>
+                {% endfor %}
+                <!-- <li>The Hungry Caterpiller - Eric Carle</li>
                 <li>Amber the Orange Fairy - Daisy Meadows</li>
                 <li>The Elephant Vanishes - Haruki Murakami</li>
-                <li>Dune - Frank Herbert</li>
+                <li>Dune - Frank Herbert</li> -->
             </ul>
         </body> 
 </html>

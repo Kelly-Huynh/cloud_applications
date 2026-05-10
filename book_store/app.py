@@ -1,5 +1,6 @@
 from flask import Flask
-
+from lib.database_connection import DatabaseConnection
+from lib.book_repository import BookRepository
 from flask import render_template
 
 # instantiate a Flask app object
@@ -21,8 +22,13 @@ def hello():
 # # NEW PART END
 
 @app.route('/books', methods=['GET'])
-def books():
-    return render_template("books.html")
+def get_all_books():
+    connection = DatabaseConnection()
+    connection.connect()
+    book_repository = BookRepository(connection)
+    books = book_repository.all()
+    print(books)
+    return render_template("books.html", books=books)
 
 
 @app.route('/initial_books', methods=['GET'])
@@ -50,6 +56,11 @@ def initial_books():
 @app.route('/authors', methods=['GET'])
 def authors():
     return render_template("authors.html")
+
+@app.route('/team', methods=['GET'])
+def get_team():
+    team = ["Dorothy", "Rose", "Blanche", "Sophia"]
+    return render_template("team.html", team=team)
 
 @app.route('/initial_authors', methods=['GET'])
 def initial_authors():
