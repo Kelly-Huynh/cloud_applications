@@ -20,6 +20,14 @@ def hello():
 #     return "Hello, hello and hello again!"
 
 # # NEW PART END
+# added as a workaround at end of iteration 2
+@app.route('/seed', methods=['GET'])
+def seed():
+    connection = DatabaseConnection()
+    connection.connect()
+    connection.seed("seeds/book_store.sql")
+    return "We probably seeded the books database"
+
 
 @app.route('/books', methods=['GET'])
 def get_all_books():
