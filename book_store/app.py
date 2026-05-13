@@ -1,7 +1,9 @@
 from flask import Flask
 from lib.database_connection import DatabaseConnection
 from lib.book_repository import BookRepository
+from lib.book import Book
 from flask import render_template
+from flask import request
 
 # instantiate a Flask app object
 app = Flask(__name__)
@@ -38,6 +40,22 @@ def get_all_books():
     print(books)
     return render_template("books.html", books=books)
 
+@app.route('/books', methods=['POST'])
+def create_book():
+    # make a new db connection
+    connection = DatabaseConnection()
+    connection.connect()
+    # make a new instance of BookRepository
+    book_repository = BookRepository(connection)
+    # get the request body
+    book_details = request.form # no longer json and updated to form
+    # my BookRepository expects an instance of Book, so make one here
+    book = Book(title=book_details["title"], author=book_details["author"])
+    # save the book
+    book_repository.create(book)
+    # print(book_details)
+    # return a 201, which means "created"
+    return "created", 201
 
 @app.route('/initial_books', methods=['GET'])
 def initial_books():

@@ -18,9 +18,11 @@ class DatabaseConnection:
     def connect(self):
         try:
             self.connection = psycopg.connect(
-                f"postgresql://postgres:password@book_store_db/book_store",
-                # f"postgresql://postgres:password@{self.DATABASE_NAME}_db/{self.DATABASE_NAME}",
+                f"postgresql://localhost/{self.DATABASE_NAME}",
+                # f"postgresql://postgres:password@book_store_db/book_store",
+                # f"postgresql://postgres:password@{self.DATABASE_NAME}_db/{self.DATABASE_NAME}", <= unsure if this works
                 row_factory=dict_row)
+            
         except psycopg.OperationalError:
             raise Exception(f"Couldn't connect to the database {self.DATABASE_NAME}! " \
                     f"Did you create it using `createdb {self.DATABASE_NAME}`?")
