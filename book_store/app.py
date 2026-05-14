@@ -2,8 +2,11 @@ from flask import Flask
 from lib.database_connection import DatabaseConnection
 from lib.book_repository import BookRepository
 from lib.book import Book
+from lib.film_repository import FilmRepository
+from lib.film import Film
 from flask import render_template
 from flask import request
+from flask import redirect
 
 # instantiate a Flask app object
 app = Flask(__name__)
@@ -40,6 +43,15 @@ def get_all_books():
     print(books)
     return render_template("books.html", books=books)
 
+@app.route('/films', methods=['GET'])
+def get_all_films():
+    connection = DatabaseConnection()
+    connection.connect()
+    film_repository = FilmRepository(connection)
+    films = film_repository.all()
+    print(films)
+    return render_template("films.html", films=films)
+
 @app.route('/books', methods=['POST'])
 def create_book():
     # make a new db connection
@@ -54,8 +66,13 @@ def create_book():
     # save the book
     book_repository.create(book)
     # print(book_details)
+    # following line reads all the books from the db which is a duplication from get_all_books()
+    # books = book_repository.all()
     # return a 201, which means "created"
-    return "created", 201
+    # return "created", 201
+    # rendering will cause a refresh to duplicate the last submission
+    # return render_template("books.html", books=books)
+    return redirect("/books")
 
 @app.route('/initial_books', methods=['GET'])
 def initial_books():

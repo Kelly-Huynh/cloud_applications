@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .thumbnail:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+            background-color: dodgerblue;
+            font-size: 30px;
+            transition: 500ms;
+            border: 1px solid black;
+        }
+        img {
+            border: 1px solid #ddd; /* Gray border */
+            border-radius: 4px;  /* Rounded border */
+            padding: 5px; /* Some padding */
+            width: 150px; /* Set a small width */
+        }
+
+    </style>
+        <body>
+            <h1>Films</h1>
+                    <div class="films">
+            </div>
+            <ul>
+                {% for film in films %}
+                    <li>{{ film.title }} by {{ film.director }}</li>
+                {% endfor %}
+            </ul>
+        </body> 
+</html>

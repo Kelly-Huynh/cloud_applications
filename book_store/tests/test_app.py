@@ -2,6 +2,7 @@ from playwright.sync_api import Page, expect
 from flask import Flask
 import sys
 import os
+from lib.database_connection import DatabaseConnection
 
 # this line is a bit of a hack which allows us to import app without changing anything else
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -9,6 +10,30 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from app import app
 
 # a descriptive test name
+def test_get_films_returns_a_200():
+    # here's where we make the test client
+    client = app.test_client()
+
+    # here's where we make the request
+    response = client.get("/films")
+
+    # here's where we assert that the response's status code is 200
+    assert response.status_code == 200
+
+def test_get_films_returns_all_the_initial_films(page: Page):
+    connection = DatabaseConnection()
+    connection.connect()
+    connection.seed("./seeds/films.sql")
+    page.goto("http://127.0.0.1:5001/films")
+    actual_list = page.locator("ul").all_inner_texts()
+    expected_list = [
+        "The Hunger Games by Gary Ross\n"
+        "Tenet by Christopher Nolan\n"
+        "Project Hail Mary by Phil Lord\n"
+        "Dune by Denis Villeneuve"
+        ]
+    assert actual_list == expected_list
+
 def test_get_books_returns_a_200():
     # here's where we make the test client
     client = app.test_client()
