@@ -11,3 +11,9 @@ class FilmRepository:
             item = Film(row["title"], row["director"], row["id"])
             films.append(item)
         return films
+
+    def create(self, film):
+        self._connection.execute(
+            'INSERT INTO films (title, director) VALUES (%s, %s)', 
+            [film.title, film.director])
+        return None

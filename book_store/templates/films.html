@@ -26,5 +26,10 @@
                     <li>{{ film.title }} by {{ film.director }}</li>
                 {% endfor %}
             </ul>
+            <form method="POST" action=""/films">
+                <input type="text" name="title" placeholder="Title"><br>
+                <input type="text" name="director" placeholder="Director"><br>
+                <input type="submit" value="Add Film">
+            </form>
         </body> 
 </html>

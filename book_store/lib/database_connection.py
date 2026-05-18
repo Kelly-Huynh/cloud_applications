@@ -8,7 +8,7 @@ import os
 # If the below seems too complex right now, that's OK.
 # That's why we have provided it!
 class DatabaseConnection:
-    DATABASE_NAME = "book_store" # <-- CHANGED
+    DATABASE_NAME = os.getenv("DATABASE_NAME", "book_store_test") # <-- uses db name, otherwise default to test db
 
     def __init__(self):
         self.connection = None

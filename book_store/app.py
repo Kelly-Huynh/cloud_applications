@@ -7,6 +7,7 @@ from lib.film import Film
 from flask import render_template
 from flask import request
 from flask import redirect
+import os
 
 # instantiate a Flask app object
 app = Flask(__name__)
@@ -26,12 +27,18 @@ def hello():
 
 # # NEW PART END
 # added as a workaround at end of iteration 2
-@app.route('/seed', methods=['GET'])
-def seed():
-    connection = DatabaseConnection()
-    connection.connect()
-    connection.seed("seeds/book_store.sql")
-    return "We probably seeded the books database"
+# @app.route('/seed', methods=['GET'])
+def seed(self, sql_filename):
+    self._check_connection()
+    if not os.path.exists(sql_filename):
+        raise Exception(f"File {sql_filename} does not exist")
+    with self.connection.cursor() as cursor:
+        cursor.execute(open(sql_filename, "r").read())
+        self.connection.commit()
+    # connection = DatabaseConnection()
+    # connection.connect()
+    # connection.seed("seeds/book_store.sql")
+    # return "We probably seeded the books database"
 
 
 @app.route('/books', methods=['GET'])
@@ -73,6 +80,16 @@ def create_book():
     # rendering will cause a refresh to duplicate the last submission
     # return render_template("books.html", books=books)
     return redirect("/books")
+
+@app.route('/films', methods=['POST'])
+def create_film():
+    connection = DatabaseConnection()
+    connection.connect()
+    film_repository = FilmRepository(connection)
+    film_details = request.form
+    film = Film(title=film_details["title"], director=film_details["director"])
+    film_repository.create(film)
+    return redirect("/films")
 
 @app.route('/initial_books', methods=['GET'])
 def initial_books():
